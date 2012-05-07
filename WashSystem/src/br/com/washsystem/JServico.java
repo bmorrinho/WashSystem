@@ -31,6 +31,7 @@ public class JServico extends JFrame {
 	private final Action apagar = new Apagar();
 	private final Action alterar = new Alterar();
 	private final WindowListener fechar = new Fechar();
+	private JTextField textPreco;
 
 	/**
 	 * Create the frame.
@@ -40,7 +41,7 @@ public class JServico extends JFrame {
 		setTitle("Cadastro de Tipos de Serviço");
 		addWindowListener(fechar);
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 444, 145);
+		setBounds(100, 100, 444, 181);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -59,6 +60,12 @@ public class JServico extends JFrame {
 		textDescricao.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Descri\u00E7\u00E3o:");
+		
+		JLabel label = new JLabel("Pre\u00E7o:");
+		
+		textPreco = new JTextField();
+		textPreco.setEditable(false);
+		textPreco.setColumns(10);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -69,11 +76,14 @@ public class JServico extends JFrame {
 							.addComponent(lblCdigo)
 							.addGap(5))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblNome)
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addComponent(label, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNome))
 							.addPreferredGap(ComponentPlacement.RELATED)))
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(textCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textDescricao, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textDescricao, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textPreco, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(185, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
@@ -90,7 +100,11 @@ public class JServico extends JFrame {
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(textDescricao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNome))))
-					.addContainerGap(42, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(textPreco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label))
+					.addContainerGap(11, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		
@@ -142,8 +156,8 @@ public class JServico extends JFrame {
 						.addComponent(btnSalva)
 						.addComponent(btnApagar))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(34, Short.MAX_VALUE))
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
 		
@@ -157,7 +171,7 @@ public class JServico extends JFrame {
 			
 			textCodigo.setText(String.valueOf(servico.getCodigo()));
 			textDescricao.setText(servico.getDescricao());
-			
+			textPreco.setText(String.valueOf(servico.getPreco()));
 		}
 
 		
@@ -175,8 +189,10 @@ public class JServico extends JFrame {
 				textCodigo.setText(String.valueOf(BancoDeDados.servicos.getLast().getCodigo() + 1));
 			
 			textDescricao.setEditable(true);
+			textPreco.setEditable(true);
 			
 			textDescricao.setText("");
+			textPreco.setText("");
 						
 		}
 	}
@@ -202,6 +218,7 @@ public class JServico extends JFrame {
 					try{
 						servico.setCodigo(Integer.parseInt(textCodigo.getText()));
 						servico.setDescricao(textDescricao.getText());
+						servico.setPreco(Double.parseDouble(textPreco.getText()));
 	
 					}
 					catch(NumberFormatException numFormatE){
@@ -211,6 +228,7 @@ public class JServico extends JFrame {
 					setTitle("Cadastro de Tipos de Serviço - [" + BancoDeDados.servicos.size() + "]");
 					
 					textDescricao.setEditable(false);
+					textPreco.setEditable(false);
 					
 					return;
 				}
@@ -218,7 +236,8 @@ public class JServico extends JFrame {
 			
 			try{
 				servico = new Servico(Integer.parseInt(textCodigo.getText()),
-									  textDescricao.getText());
+									  textDescricao.getText(),
+									  Double.parseDouble(textPreco.getText()));
 
 			BancoDeDados.servicos.add(servico);
 			
@@ -258,7 +277,7 @@ public class JServico extends JFrame {
 					
 						textCodigo.setText(String.valueOf(previous.getCodigo()));
 						textDescricao.setText(previous.getDescricao());						
-						
+						textPreco.setText(String.valueOf(previous.getPreco()));
 					}
 					break;
 				}				
@@ -286,7 +305,8 @@ public class JServico extends JFrame {
 					next = listIt.next();
 					
 					textCodigo.setText(String.valueOf(next.getCodigo()));
-					textDescricao.setText(next.getDescricao());	
+					textDescricao.setText(next.getDescricao());
+					textPreco.setText(String.valueOf(next.getPreco()));
 					
 					break;
 				}
@@ -329,6 +349,7 @@ public class JServico extends JFrame {
 						
 							textCodigo.setText("");
 							textDescricao.setText("");
+							textPreco.setText("");
 						
 						}
 					
@@ -348,7 +369,8 @@ public class JServico extends JFrame {
 			
 			if(BancoDeDados.servicos.size() >= 1 ){
 			
-				textDescricao.setEditable(true);	
+				textDescricao.setEditable(true);
+				textPreco.setEditable(true);
 			
 			}
 			

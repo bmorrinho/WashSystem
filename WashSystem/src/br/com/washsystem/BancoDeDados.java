@@ -18,6 +18,7 @@ public class BancoDeDados {
 	public static LinkedList<Roupa> roupas = new LinkedList<Roupa>();
 	public static LinkedList<Servico> servicos = new LinkedList<Servico>();
 	public static LinkedList<Preco> precos = new LinkedList<Preco>();
+	public static LinkedList<OrdemServico> ordemservico = new LinkedList<OrdemServico>();
 	
 	public static void carregaClientes(){
 			
@@ -302,5 +303,69 @@ public class BancoDeDados {
 			}			
 		}				
 	}
+	
+	public static void carregaOrdemServico(){
+		
+	File arquivo = new File("/washsystem/ordemservico.ser");
+	
+	if(arquivo.exists()){
+		
+		if(arquivo.length() > 0){
+			
+			try {
+				ObjectInputStream input = new ObjectInputStream(new FileInputStream(arquivo));
+				ordemservico = (LinkedList<OrdemServico>)input.readObject();
+				input.close();
+			
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	else{
+		
+		new File("/washsystem").mkdir();
+			
+			arquivo = new File("/washsystem/ordemservico.ser");
+		
+			try {
+				
+				arquivo.createNewFile();
+				ObjectInputStream input = new ObjectInputStream(new FileInputStream(arquivo));
+				ordemservico = (LinkedList<OrdemServico>)input.readObject();		
+				input.close();
+				
+			} catch (FileNotFoundException e) {
+					e.printStackTrace();
+			} catch (IOException e) {
+					e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+			}			
+		}		
+	}
 
+	public static void gravaOrdemServico(){
+	
+		File arquivo = new File("/washsystem/ordemservico.ser");
+		
+		ObjectOutputStream output;
+		
+		if(arquivo.exists() && arquivo.canWrite()){
+			
+			try {
+				output = new ObjectOutputStream(new FileOutputStream(arquivo));
+				output.writeObject(ordemservico);
+				output.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}				
+	}
 }
