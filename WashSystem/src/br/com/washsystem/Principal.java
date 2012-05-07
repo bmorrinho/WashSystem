@@ -49,6 +49,8 @@ import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
+import javax.swing.JList;
+import javax.swing.JTextPane;
 
 public class Principal {
 
@@ -56,7 +58,7 @@ public class Principal {
 	private final Action actionJClientes = new actionJClientes();
 	private final Action actionJRoupas = new actionJRoupas();
 	private final Action actionJServicos = new actionJServicos();
-	private final Action actionJPrecos = new actionJPrecos();
+	//private final Action actionJPrecos = new actionJPrecos();
 	private JTextField textCodigo;
 	private JTextField textCodServico;
 	private JTextField textDescServico;
@@ -133,9 +135,9 @@ public class Principal {
 		mntmServios.setAction(actionJServicos);
 		mnCadastros.add(mntmServios);
 		
-		JMenuItem mntmTabelaDePreos = new JMenuItem("Tabela de Pre\u00E7os");
-		mntmTabelaDePreos.setAction(actionJPrecos);
-		mnCadastros.add(mntmTabelaDePreos);
+		//JMenuItem mntmTabelaDePreos = new JMenuItem("Tabela de Pre\u00E7os");
+		//mntmTabelaDePreos.setAction(actionJPrecos);
+		//mnCadastros.add(mntmTabelaDePreos);
 		
 		JPanel panelCadServico = new JPanel();
 		panelCadServico.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -155,13 +157,14 @@ public class Principal {
 					.addContainerGap())
 		);
 		
-		JLabel label = new JLabel("C\u00F3digo:");
+		JLabel lblOrdemDeServio = new JLabel("Ordem de Servi\u00E7o:");
 		
 		textCodigo = new JTextField();
 		textCodigo.setEditable(false);
 		textCodigo.setColumns(10);
 		
 		textCodServico = new JTextField();
+		textCodServico.setEditable(false);
 		textCodServico.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
@@ -188,6 +191,7 @@ public class Principal {
 		JLabel lblTipoDeRoupa = new JLabel("Tipo de Roupa:");
 		
 		textCodRoupa = new JTextField();
+		textCodRoupa.setEditable(false);
 		textCodRoupa.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -247,7 +251,7 @@ public class Principal {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panelCadServico.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblNomeDoCliente, Alignment.TRAILING)
-								.addComponent(label, Alignment.TRAILING)
+								.addComponent(lblOrdemDeServio, Alignment.TRAILING)
 								.addComponent(lblTipoDeServio, Alignment.TRAILING)
 								.addComponent(lblTipoDeRoupa, Alignment.TRAILING))
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -280,7 +284,7 @@ public class Principal {
 				.addGroup(gl_panelCadServico.createSequentialGroup()
 					.addGap(20)
 					.addGroup(gl_panelCadServico.createParallelGroup(Alignment.LEADING)
-						.addComponent(label)
+						.addComponent(lblOrdemDeServio)
 						.addGroup(gl_panelCadServico.createSequentialGroup()
 							.addComponent(textCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(15)
@@ -307,7 +311,7 @@ public class Principal {
 						.addComponent(btnIncluir))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-					.addGap(241))
+					.addGap(243))
 		);
 		//panelCadServico.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{textCodRoupa, textCodServico}));
 		panelCadServico.setLayout(gl_panelCadServico);
@@ -499,5 +503,4 @@ public class Principal {
 		}
 		}
 	}
-	
 }

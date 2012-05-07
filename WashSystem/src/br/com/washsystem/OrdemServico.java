@@ -6,7 +6,7 @@ public class OrdemServico implements Serializable{
 	
 	private int codigo;
 	private Cliente cliente;
-	private Servico servico;
+	private Servico servico; // como salvar uma lista de serviços e roupas?
 	private Roupa roupa;
 
 	public OrdemServico(int cod, Cliente cli, Servico serv, Roupa rou){

@@ -249,6 +249,7 @@ public class JServico extends JFrame {
 			setTitle("Cadastro de Tipos de Serviço - [" + BancoDeDados.servicos.size() + "]");
 			
 			textDescricao.setEditable(false);
+			textPreco.setEditable(false);
 			
 		}
 		}
