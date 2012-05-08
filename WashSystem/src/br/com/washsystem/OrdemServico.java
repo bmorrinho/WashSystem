@@ -5,13 +5,15 @@ import java.io.Serializable;
 public class OrdemServico implements Serializable{
 	
 	private int codigo;
+	private int sequencia;
 	private Cliente cliente;
 	private Servico servico; // como salvar uma lista de serviços e roupas?
 	private Roupa roupa;
 
-	public OrdemServico(int cod, Cliente cli, Servico serv, Roupa rou){
+	public OrdemServico(int cod, int sequencia, Cliente cli, Servico serv, Roupa rou){
 		
 		this.codigo=cod;
+		this.sequencia=sequencia;
 		this.cliente=cli;
 		this.servico=serv;
 		this.roupa=rou;
@@ -40,6 +42,14 @@ public class OrdemServico implements Serializable{
 	}
 	public void setRoupa(Roupa roupa) {
 		this.roupa = roupa;
+	}
+
+	public int getSequencia() {
+		return sequencia;
+	}
+
+	public void setSequencia(int sequencia) {
+		this.sequencia = sequencia;
 	}
 
 }
